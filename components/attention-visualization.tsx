@@ -95,8 +95,11 @@ export default function AttentionVisualization({
         />
         <ZAxis dataKey="z" range={[50, 400]} name="Attention" />
         <Tooltip
-          formatter={(value: any, name: string, props: any) => {
-            const { sourceToken, targetToken } = props.payload;
+          formatter={(value: number, name: string, props: unknown) => {
+            const payload = (
+              props as { payload: { sourceToken: string; targetToken: string } }
+            ).payload;
+            const { sourceToken, targetToken } = payload;
             return [
               `From "${sourceToken}" to "${targetToken}": ${Number(
                 value
